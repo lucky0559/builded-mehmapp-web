@@ -1,24 +1,15 @@
 const mysql = require('mysql2');
+const Pool = require('mysql2/typings/mysql/lib/Pool');
 
-var config = 'mysql://u3nhojkyfzisauwr:nhtMziGpaFlvqnK9yV7s@b2dql3cn1qsogappkey0-mysql.services.clever-cloud.com:3306/b2dql3cn1qsogappkey0'
 
-const connectToDB = () => {
-    connection = mysql.createConnection(config)
-    connection.connect(function (err) {
-        if(err) {
-            setTimeout(connectToDB, 2000);
-        }
-    })
-    connection.on('error', (err) => {
-        console.log(err)
-        if(err.code === 'PROTOCOL_CONNECTION_LOST') {
-            connectToDB();
-        }
-        else {
-            throw err; 
-        }
-    })
-}
+ const connection = mysql.createPool({
+   uri: 'mysql://u3nhojkyfzisauwr:nhtMziGpaFlvqnK9yV7s@b2dql3cn1qsogappkey0-mysql.services.clever-cloud.com:3306/b2dql3cn1qsogappkey0'
+});
 
-module.exports = connectToDB
+connection.query('SELECT 1 + 1 AS solution', (err, rows) => {
+    if(err) throw err;
+    console.log('The solution is: ', rows[0].solution)
+})
 
+
+module.exports = connection
