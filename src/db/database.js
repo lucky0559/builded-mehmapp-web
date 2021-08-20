@@ -22,10 +22,3 @@ const connectToDB = () => {
 
 module.exports = connectToDB
 
-
-
-
-
-
-module.exports = connection
-
