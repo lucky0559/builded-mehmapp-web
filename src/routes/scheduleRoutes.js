@@ -78,7 +78,7 @@ router.put('/edit/:apointment_id', async(req,res) => {
 
     try {
 
-        const response = db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `)
+        const response = await db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `)
 
         if(response[0].length > 0 ) {
             return res.status(400).send('Schedule not Available')
