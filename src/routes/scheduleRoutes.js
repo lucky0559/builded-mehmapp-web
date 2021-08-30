@@ -82,9 +82,9 @@ router.put('/edit/:apointment_id', async(req,res) => {
 
         if(response[0][0].time === time && response[0][0].date === date) {
             await db.promise().query(`UPDATE appointment SET user_id = '${user_id}', date = '${date}', time = '${time}', contact_number = '${contact_number}', status = '${status}' WHERE appointment_id = '${app_id}' `)
-            res.status(200).send("Updated Successfully!")
+            return res.status(200).send("Updated Successfully!")
         }
-        else if(response[0].length > 0 ) {
+        if(response[0].length > 0 ) {
             return res.status(400).send({message: 'Schedule not Available'})
         }
 
