@@ -78,10 +78,7 @@ router.put('/edit/:apointment_id', async(req,res) => {
 
     try {
 
-        const response = await db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `, (err, result) => {
-            if(err) throw err;
-            res.status(200).send(result)
-        })
+        const response = await db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `)
 
      
         
