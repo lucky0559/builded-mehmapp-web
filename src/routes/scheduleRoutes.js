@@ -80,16 +80,21 @@ router.put('/edit/:apointment_id', async(req,res) => {
 
         const response = await db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `)
 
-        if(time === response[0].time && date === response[0].date) {
+     
+        
+        if(response[0].length > 0 ) {
+            if(time === response[0].time && date === response[0].date) {
+                await db.promise().query(`UPDATE appointment SET user_id = '${user_id}', date = '${date}', time = '${time}', contact_number = '${contact_number}', status = '${status}' WHERE appointment_id = '${app_id}' `)
+                return res.status(200).send("Updated Successfully!")
+            }
+            else {
+                return res.status(400).send({message: 'Schedule not Available'})
+            }
+        }
+        else {
             await db.promise().query(`UPDATE appointment SET user_id = '${user_id}', date = '${date}', time = '${time}', contact_number = '${contact_number}', status = '${status}' WHERE appointment_id = '${app_id}' `)
-            return res.status(200).send("Updated Successfully!")
+            res.status(200).send("Updated Successfully!")
         }
-        else if(response[0].length > 0 ) {
-            return res.status(400).send({message: 'Schedule not Available'})
-        }
-
-        await db.promise().query(`UPDATE appointment SET user_id = '${user_id}', date = '${date}', time = '${time}', contact_number = '${contact_number}', status = '${status}' WHERE appointment_id = '${app_id}' `)
-        res.status(200).send("Updated Successfully!")
     }
     catch(err) {
         res.send(err);
