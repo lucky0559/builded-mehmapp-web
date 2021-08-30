@@ -80,7 +80,7 @@ router.put('/edit/:apointment_id', async(req,res) => {
 
         const response = await db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `)
 
-        if(response[0].time === time && response[0].date === date) {
+        if(response[0][0].time === time && response[0][0].date === date) {
             return res.status(201).send({message: 'Same'})
         }
         else if(response[0].length > 0 ) {
