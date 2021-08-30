@@ -84,7 +84,7 @@ router.put('/edit/:apointment_id', async(req,res) => {
         
         if(response[0].length > 0 ) {
             if(time === response[0].time && date === response[0].date) {
-                return res.status(400).send({message: 'Same'}
+                return res.status(400).send({message: 'Same'})
             }
             else {
                 return res.status(400).send({message: 'Schedule not Available'})
