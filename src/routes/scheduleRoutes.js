@@ -82,7 +82,7 @@ router.put('/edit/:appointment_id', async(req,res) => {
 
      
         
-            await db.promise().query(`INSERT INTO appointment(user_id, date, time, contact_number, status) VALUES('${user_id}', '${date}', '${time}', '${contact_number}', Waiting) `)
+            await db.promise().query(`INSERT INTO appointment(user_id, date, time, contact_number, status) VALUES('${user_id}', '${date}', '${time}', '${contact_number}', 'Waiting') `)
             res.status(200).send("Updated Successfully!")
         
 
