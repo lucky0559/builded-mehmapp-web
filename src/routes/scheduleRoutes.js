@@ -71,10 +71,10 @@ router.delete('/delete/:appointment_id', async(req,res) => {
 })
 
 
-router.put('/edit/:apointment_id', async(req,res) => {
+router.put('/edit/:appointment_id', async(req,res) => {
 
     const { user_id, date, time, contact_number} = req.body;
-    const app_id = req.params.apointment_id
+    const app_id = req.params.appointment_id;
 
     try {
 
