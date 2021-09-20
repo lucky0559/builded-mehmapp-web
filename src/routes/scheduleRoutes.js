@@ -83,7 +83,7 @@ router.put('/edit/:appointment_id', async(req,res) => {
         const response = await db.promise().query(`SELECT * FROM appointment WHERE time = '${time}' && date = '${date}' `)
 
         if(response[0].length > 0) {
-            return res.status(400).send("Not available schedule")
+            return res.status(400).send(err)
         }
         
             await db.promise().query(`INSERT INTO appointment(user_id, date, time, contact_number, status) VALUES('${user_id}', '${date}', '${time}', '${contact_number}', 'Waiting') `)
