@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router= Router();
 const db = require('../db/database')
+const lodash = require('lodash')
 
 router.post('/add', async(req,res) => {
     const { user_id, date, time, contact_number } = req.body;
@@ -44,7 +45,8 @@ router.get('/getDate/:date', async(req,res) => {
     const date = req.params.date
     
     try{
-        const selected = await db.promise().query(`SELECT * FROM appointment WHERE date = '${date}' `)
+        const selected = await db.promise().query(`SELECT * FROM appointment WHERE date = '${date}' ORDER BY CASE WHEN time = '9:00AM - 12:00PM' THEN 0 WHEN time = '1:00PM - 4:00PM' THEN 1 END `)
+
         // console.log(selected[0])
         res.status(200).send(selected[0]);
     }
