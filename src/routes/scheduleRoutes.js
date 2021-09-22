@@ -10,7 +10,7 @@ router.post('/add', async(req,res) => {
         try {
             schedule_check = await db.promise().query(`SELECT * FROM appointment WHERE date = '${date}' && time = '${time}' `);
             if(schedule_check[0].length > 0) {
-                res.status(400).send("Schedule not available");
+                res.status(400).send({msg:"Schedule not available"});
             }
             else {
 
@@ -22,7 +22,7 @@ router.post('/add', async(req,res) => {
                 }
 
                 catch(err) {
-                    res.status(400).send("Invalid User ID");
+                    res.status(400).send({msg:"Invalid User ID"});
                 }
 
                 
