@@ -16,7 +16,7 @@ router.post('/add', async(req,res) => {
 
                 const phoneNumber = await db.promise().query(`SELECT phoneNumber FROM users WHERE id = '${user_id}' `)
 
-                if(phoneNumber[0][0].length < 0) {
+                if(phoneNumber[0][0].phoneNumber.length <= 0) {
                     res.status(400).send(error)
                 }
 
