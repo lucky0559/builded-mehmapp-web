@@ -16,8 +16,10 @@ router.post('/add', async(req,res) => {
 
                 const phoneNumber = await db.promise().query(`SELECT phoneNumber FROM users WHERE id = '${user_id}' `)
 
+                const number = phoneNumber[0][0]
+
                 await db.promise().query(`INSERT INTO appointment(user_id, date, time, contact_number, status) VALUES('${user_id}', '${date}', '${time}', '${phoneNumber[0][0]}', '${'Waiting'}' ) `)
-                res.status(201).send({msg:"Schedule Added!", contact_number:`${phoneNumber[0][0]}`})
+                res.status(201).send({msg:"Schedule Added!", contact_number:`${number}`})
             }
         }
         catch(err) {
