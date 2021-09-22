@@ -1,21 +1,23 @@
 const { Router } = require('express');
 const router= Router();
 const db = require('../db/database')
-const lodash = require('lodash')
 
 router.post('/add', async(req,res) => {
-    const { user_id, date, time, contact_number } = req.body;
+    const { user_id, date, time } = req.body;
     
 
-    if(user_id, date, time, contact_number) {
+    if(user_id, date, time) {
         try {
             schedule_check = await db.promise().query(`SELECT * FROM appointment WHERE date = '${date}' && time = '${time}' `);
             if(schedule_check[0].length > 0) {
                 res.status(400).send("Schedule not available");
             }
             else {
-                await db.promise().query(`INSERT INTO appointment(user_id, date, time, contact_number, status) VALUES('${user_id}', '${date}', '${time}', '${contact_number}', '${'Waiting'}' ) `)
-                res.status(201).send("Schedule Added!")
+
+                const phoneNumber = await db.promise().query(`SELECT phoneNumber FROM users WHERE id = '${user_id}' `)
+
+                await db.promise().query(`INSERT INTO appointment(user_id, date, time, contact_number, status) VALUES('${user_id}', '${date}', '${time}', '${phoneNumber[0]}', '${'Waiting'}' ) `)
+                res.status(201).send({msg:"Schedule Added!", contact_number:`${phoneNumber[0]}`})
             }
         }
         catch(err) {
