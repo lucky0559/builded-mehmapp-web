@@ -22,7 +22,7 @@ router.post('/add', async(req,res) => {
                 }
 
                 catch(err) {
-                    res.status(400).send("Incomplete Field");
+                    res.status(400).send("Invalid User ID");
                 }
 
                 
