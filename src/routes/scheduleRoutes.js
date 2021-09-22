@@ -22,7 +22,7 @@ router.post('/add', async(req,res) => {
                 }
 
                 catch(err) {
-                    console.log(err)
+                    res.status(400).send("Incomplete Field");
                 }
 
                 
